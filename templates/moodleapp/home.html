@@ -1,0 +1,29 @@
+{% extends 'moodleapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {% for error in form.non_field_errors %}
+        <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+  <div class="jumbotron">
+    <h1 align="center">mini MOODLE</h1>
+    <div class='container' style='padding-top:10px'>
+      <form method="post" novalidate>{% csrf_token %}
+        <div class="row">
+          <input type="hidden" name="next" value="{{ next }}" class="form-control" />
+          <div class="col-md-6">{{ form.username|as_crispy_field }}</div>
+          <div class="col-md-6">{{ form.password|as_crispy_field }}</div>
+        </div>
+        <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" />
+      </form>
+    </div>
+  </div>
+{% endblock body %}
