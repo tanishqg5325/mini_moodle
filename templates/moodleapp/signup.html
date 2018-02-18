@@ -1,8 +1,22 @@
 {% extends 'moodleapp/base.html' %}
 
+{% block navigation %}
+  {% if user.is_authenticated %}
+    <li>
+      <a href="{% url 'logout' %}">Log Out</a>
+    </li>
+    {% else %}
+      <li>
+        <a href="{% url 'home' %}">Home</a>
+      </li>
+  {% endif %}
+{% endblock navigation %}
+
 {% block body %}
-  <h2>Sign up for a free account</h2>
+  <div align="center" class="jumbotron" >
+  <h1>Sign up for a free account</h1>
   <p class="lead">Select below the type of account you want to create</p>
-  <a href="{% url 'studentsignup' %}" class="btn btn-student btn-lg" role="button">I'm a student</a>
-  <a href="{% url 'teachersignup' %}" class="btn btn-teacher btn-lg" role="button">I'm a teacher</a>
+  <a href="{% url 'studentsignup' %}" class="btn btn-student btn-lg" role="button" style="font-size: 20px">I'm a Student</a>
+  <a href="{% url 'teachersignup' %}" class="btn btn-teacher btn-lg" role="button" style="font-size: 20px">I'm a Teacher</a>
+    </div>
 {% endblock body %}

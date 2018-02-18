@@ -2,15 +2,31 @@
 
 {% load crispy_forms_tags %}
 
+{% block navigation %}
+{% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'logout' %}">Log Out</a>
+        </li>
+{% else %}
+        <li>
+            <a href="{% url 'signup' %}">Back</a>
+        </li>
+        <li>
+            <a href="{% url 'home' %}">Home</a>
+        </li>
+{% endif %}
+{% endblock navigation %}
+
 {% block body %}
-  <div class="row">
-    <div class="col-md-8 col-sm-10 col-12">
-      <h2>Sign up as a {{ user_type }}</h2>
+  <div class="jumbotron">
+
+      <h1 align="center">Sign up as a {{ user_type }}</h1>
+      <div class='container' style='padding-top:10px'>
       <form method="post" novalidate>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Sign up</button>
+        <input type="submit" value="Sign Up" class='btn btn-primary btn-lg btn-block' />
       </form>
     </div>
   </div>

@@ -2,6 +2,18 @@
 
 {% load crispy_forms_tags %}
 
+{% block navigation %}
+  {% if user.is_authenticated %}
+    <li>
+      <a href="{% url 'logout' %}">Log Out</a>
+    </li>
+    {% else %}
+      <li>
+        <a href="{% url 'signup' %}">Sign Up</a>
+      </li>
+  {% endif %}
+{% endblock navigation %}
+
 {% block body %}
   {% if form.non_field_errors %}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">

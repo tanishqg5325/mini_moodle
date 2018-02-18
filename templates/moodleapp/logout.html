@@ -1,3 +1,14 @@
 {% extends 'moodleapp/base.html' %}
+{% block navigation %}
+  {% if user.is_authenticated %}
+    <li>
+      <a href="{% url 'logout' %}">Log Out</a>
+    </li>
+    {% else %}
+      <li>
+        <a href="{% url 'signup' %}">Sign Up</a>
+      </li>
+  {% endif %}
+{% endblock navigation %}
 <!--{{ message }}
 <a href="{% url 'logout' %}">Log out</a>-->
