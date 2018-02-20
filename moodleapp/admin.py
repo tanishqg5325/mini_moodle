@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import User, Subject, Quiz, Student
+from .models import Student, Teacher, Course, Message
 
-admin.site.register(User)
-admin.site.register(Subject)
-admin.site.register(Quiz)
+admin.site.register(Student)
+admin.site.register(Teacher)
+admin.site.register(Course)
+admin.site.register(Message)

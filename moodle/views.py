@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
 from moodleapp.forms import StudentSignUpForm, TeacherSignUpForm
 from moodleapp.models import User
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView, TemplateView)
+from django.views.generic import (CreateView, TemplateView)
 
 
 def conf(request):

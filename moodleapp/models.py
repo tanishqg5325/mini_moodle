@@ -1,36 +1,36 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.html import escape, mark_safe
+from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     is_student = models.BooleanField('student status', default=False)
     is_teacher = models.BooleanField('teacher status', default=False)
 
-class Subject(models.Model):
-    name = models.CharField(max_length=30)
-    color = models.CharField(max_length=7, default='#007bff')
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
-    def get_html_badge(self):
-        name = escape(self.name)
-        color = escape(self.color)
-        html = '<span class="badge badge-primary" style="background-color: %s">%s</span>' % (color, name)
-        return mark_safe(html)
-
-class Quiz(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quizzes')
-    name = models.CharField(max_length=255)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='quizzes')
+class Course(models.Model):
+    prof = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    title = models.CharField(max_length=30)
+    description = models.TextField()
 
     def __str__(self):
-        return self.name
+        return self.title
+
+class Message(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    label = models.CharField(max_length=200)
+    body = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.label
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    quizzes = models.ManyToManyField(Quiz)
-    interests = models.ManyToManyField(Subject, related_name='interested_students')
+    courses = models.ManyToManyField(Course)
 
     def __str__(self):
         return self.user.username

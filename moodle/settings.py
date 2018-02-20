@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -114,6 +113,7 @@ AUTH_USER_MODEL='moodleapp.User'
 LOGIN_REDIRECT_URL = 'conf'
 LOGOUT_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
+LOGIN_URL = 'home'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
