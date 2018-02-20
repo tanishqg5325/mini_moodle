@@ -1,5 +1,5 @@
 from django.urls import path
-from moodleapp.views import index_teacher, index_student, add_course, view_course, add_course_to_student, delete_course_from_student, add_message
+from moodleapp.views import index_teacher, index_student, add_course, view_course, add_course_to_student, delete_course_from_student, message_index, add_message
 
 app_name = 'moodleapp'
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('viewcourses/', view_course, name='viewcourse'),
     path('student/add/<int:course_id>/', add_course_to_student, name='studaddcourse'),
     path('student/delete/<int:course_id>/', delete_course_from_student, name='deletecourse'),
-    path('teacher/addmessage/<int:course_id>', add_message, name='addmessage'),
+    path('teacher/messages/<int:course_id>', message_index, name='messageindex'),
+    path('teacher/messages/add/<int:course_id>/', add_message, name='add_message'),
 ]

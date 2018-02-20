@@ -26,7 +26,7 @@
 	{% for course in courses %}
 	<h3 class='page-header'>
         <a>{{course.title}}</a>
-        <a href="{% url 'moodleapp:addmessage' course.id %}" style="float: right; font-size: 15px">View Messages</a>
+        <a href="{% url 'moodleapp:messageindex' course.id %}" style="float: right; font-size: 15px">View Messages</a>
     </h3>
 	{{course.description|linebreaks}}
 	{% endfor %}
@@ -38,7 +38,7 @@
 </div>
 {% endblock body %}
 {% block footer %}
-{% if notes %}
+{% if courses %}
     <div class="container marketing">
     <footer>
         <p class="pull-right"><a href="#">Back to Top</a></p>

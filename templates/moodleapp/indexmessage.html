@@ -3,7 +3,10 @@
 {% block navigation %}
   {% if user.is_authenticated %}
     <li>
-        <a href="{% url 'moodleapp:viewcourse' %}">Available Courses</a>
+        <a href="{% url 'moodleapp:teacher_index' %}">Back</a>
+    </li>
+    <li>
+        <a href="{% url 'moodleapp:add_message' course.id %}">Add Message</a>
     </li>
     <li>
       <a href="{% url 'logout' %}">Log Out</a>
@@ -18,28 +21,26 @@
 {% block body %}
 
 <div class="jumbotron">
-	<h1 align="center">Enrolled Courses!</h1>
+	<h1 align="center">Messages of {{course.title}}</h1>
 </div>
 
 <div class='col-md-12'>
-{% if courses %}
-	{% for course in courses %}
+{% if messages %}
+	{% for message in messages %}
 	<h3 class='page-header'>
-        <a>{{course.title}}</a>
-        <a href="{% url 'moodleapp:deletecourse' course.id %}" style="float: right; font-size: 15px">Drop the course</a>
+        <a>{{message.label}}</a>
     </h3>
-	{{course.description|linebreaks}}
-    <a href="{% url 'moodleapp:messageindex' course.id %}">View Messages</a>
+	{{message.body|linebreaks}}
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>
-		<h3>No Courses Yet!</h3>
+		<h3>No Messages Yet!</h3>
 	</div>
 {% endif %}
 </div>
 {% endblock body %}
 {% block footer %}
-{% if courses %}
+{% if messages %}
     <div class="container marketing">
     <footer>
         <p class="pull-right"><a href="#">Back to Top</a></p>

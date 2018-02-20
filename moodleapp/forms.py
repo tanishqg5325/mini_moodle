@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from moodleapp.models import  User, Teacher, Student, Course
+from moodleapp.models import  User, Teacher, Student, Course, Message
 from django import forms
 
 class TeacherSignUpForm(UserCreationForm):
@@ -33,3 +33,7 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = ('title', 'description')
 
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model=Message
+        fields = ('label', 'body')

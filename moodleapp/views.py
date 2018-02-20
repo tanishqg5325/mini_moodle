@@ -4,7 +4,8 @@ from moodleapp.models import Teacher, Course, Student, Message
 from django.contrib import messages
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from moodleapp.forms import CourseForm
+from moodleapp.forms import CourseForm, MessageForm
+from django.contrib.auth.decorators import login_required
 
 @teacher_required
 def index_teacher(request):
@@ -18,23 +19,13 @@ def index_student(request):
 
 @teacher_required
 def add_course(request):
-    id = request.GET.get('id', None)
-    if id is not None:
-        course = get_object_or_404(Course, id=id)
-    else:
-        course = None
+    course = None
     if request.method == 'POST':
-        if request.POST.get('control') == 'delete':
-            course.delete()
-            messages.add_message(request, messages.INFO, 'Course Deleted!')
-            return HttpResponseRedirect(reverse('moodleapp:teacher_index'))
         form = CourseForm(request.POST)
         if form.is_valid():
             current_user = request.user
             current_title = request.POST.get('title')
             current_description = request.POST.get('description')
-            if id is not None:
-                course.delete()
             Course.objects.create(prof=Teacher.objects.get(user=current_user), title=current_title, description=current_description)
             messages.add_message(request, messages.INFO, 'Course Added!')
             return HttpResponseRedirect(reverse('moodleapp:teacher_index'))
@@ -61,7 +52,23 @@ def delete_course_from_student(request, course_id):
     stud.courses.remove(course)
     return HttpResponseRedirect(reverse('moodleapp:student_index'))
 
+@login_required()
+def message_index(request, course_id):
+    course=Course.objects.get(id=course_id)
+    messages=Message.objects.filter(course=course).order_by('-timestamp')
+    return render(request, 'moodleapp/indexmessage.html', {'messages': messages, 'course': course})
+
 @teacher_required()
 def add_message(request, course_id):
-    course=Course.objects.get(id=course_id)
-
+    message = None
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            current_label = request.POST.get('label')
+            current_body = request.POST.get('body')
+            Message.objects.create(course=Course.objects.get(id=course_id), label=current_label, body=current_body)
+            messages.add_message(request, messages.INFO, 'Message Added!')
+            return HttpResponseRedirect(reverse('moodleapp:messageindex', args=[course_id]))
+    else:
+        form = MessageForm(instance=message)
+    return render(request, 'moodleapp/addmessage.html', {'form': form, 'message': message})
