@@ -2,12 +2,18 @@
 
 {% block navigation %}
   {% if user.is_authenticated %}
-    <li>
-        <a href="{% url 'moodleapp:teacher_index' %}">Back</a>
-    </li>
+    {% if user.is_teacher %}
     <li>
         <a href="{% url 'moodleapp:add_message' course.id %}">Add Message</a>
     </li>
+    <li>
+        <a href="{% url 'moodleapp:teacher_index' %}">Back</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'moodleapp:student_index' %}">Back</a>
+    </li>
+    {% endif %}
     <li>
       <a href="{% url 'logout' %}">Log Out</a>
     </li>

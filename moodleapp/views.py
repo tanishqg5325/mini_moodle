@@ -19,7 +19,6 @@ def index_student(request):
 
 @teacher_required
 def add_course(request):
-    course = None
     if request.method == 'POST':
         form = CourseForm(request.POST)
         if form.is_valid():
@@ -30,12 +29,14 @@ def add_course(request):
             messages.add_message(request, messages.INFO, 'Course Added!')
             return HttpResponseRedirect(reverse('moodleapp:teacher_index'))
     else:
-        form = CourseForm(instance=course)
-    return render(request, 'moodleapp/addcourse.html', {'form': form, 'course': course})
+        form = CourseForm()
+    return render(request, 'moodleapp/addcourse.html', {'form': form})
 
 @student_required
 def view_course(request):
-    courses=Course.objects.all()
+    stud = Student.objects.get(user=request.user)
+    stud_courses=stud.courses.all()
+    courses=Course.objects.exclude(id__in=[o.id for o in stud_courses])
     return render(request, 'moodleapp/viewcourses.html', {'courses': courses})
 
 @student_required()
@@ -60,7 +61,6 @@ def message_index(request, course_id):
 
 @teacher_required()
 def add_message(request, course_id):
-    message = None
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -70,5 +70,5 @@ def add_message(request, course_id):
             messages.add_message(request, messages.INFO, 'Message Added!')
             return HttpResponseRedirect(reverse('moodleapp:messageindex', args=[course_id]))
     else:
-        form = MessageForm(instance=message)
-    return render(request, 'moodleapp/addmessage.html', {'form': form, 'message': message})
+        form = MessageForm()
+    return render(request, 'moodleapp/addmessage.html', {'form': form})
