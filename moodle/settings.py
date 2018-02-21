@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$h+3z@mod@g*f0g^*7gzah&shi@3(w2)!cl&sj#f8-1%_df9%9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['minimoodlebytanishqg5325.herokuapp.com']
 
