@@ -19,7 +19,7 @@ from .views import StudentSignUpView, TeacherSignUpView, SignUpView, conf
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='adminpage'),
     path('', auth_views.login, {'template_name': 'moodleapp/home.html'}, name='home'),
     path('moodleapp/', include('moodleapp.urls', namespace='moodleapp')),
     path('logout/', auth_views.logout, {'next_page': 'home'}, name='logout'),

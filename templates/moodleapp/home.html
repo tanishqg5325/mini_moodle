@@ -9,6 +9,9 @@
     </li>
     {% else %}
       <li>
+        <a href="{% url 'adminpage' %}">Admin</a>
+      </li>
+      <li>
         <a href="{% url 'signup' %}">Sign Up</a>
       </li>
   {% endif %}
