@@ -27,9 +27,9 @@
 	<h3 class='page-header'>
         <a>{{course.title}}</a>
         <a href="{% url 'moodleapp:messageindex' course.id %}" style="float: right; font-size: 15px">View Messages</a>
-        <a href="{% url 'moodleapp:view_enrolled' course.id %}" style="float: right; font-size: 15px">View Enrolled Students</a>
     </h3>
 	{{course.description|linebreaks}}
+    <a href="{% url 'moodleapp:view_enrolled' course.id %}" style="font-size: 15px">View Enrolled Students</a>
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>
