@@ -72,3 +72,8 @@ def add_message(request, course_id):
     else:
         form = MessageForm()
     return render(request, 'moodleapp/addmessage.html', {'form': form})
+
+def view_enrolled(request, course_id):
+    course=Course.objects.get(id=course_id)
+    students=course.student_set.all()
+    return render(request, 'moodleapp/viewenrolled.html', {'students': students})
