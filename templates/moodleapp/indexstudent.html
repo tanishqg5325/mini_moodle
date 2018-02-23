@@ -29,6 +29,7 @@
         <a href="{% url 'moodleapp:deletecourse' course.id %}" style="float: right; font-size: 15px">Drop the course</a>
     </h3>
 	{{course.description|linebreaks}}
+    <strong>Instructor: {{ course.prof }}</strong>
     <a href="{% url 'moodleapp:messageindex' course.id %}">View Messages</a>
 	{% endfor %}
 {% else %}

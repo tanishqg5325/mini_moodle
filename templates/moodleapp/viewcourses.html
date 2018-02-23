@@ -29,6 +29,7 @@
         <a href="{% url 'moodleapp:studaddcourse' course.id %}" style="float: right; font-size: 15px">Add the course</a>
     </h3>
 	{{course.description|linebreaks}}
+    <strong>Instructor: {{ course.prof }}</strong>
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>
