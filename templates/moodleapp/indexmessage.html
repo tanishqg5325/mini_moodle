@@ -35,6 +35,9 @@
 	{% for message in messages %}
 	<h3 class='page-header'>
         <a>{{message.label}}</a>
+        {% if user.is_teacher %}
+        <a href="{% url 'moodleapp:deletemessage' course.id message.id %}" style="float: right; font-size: 15px">Delete message</a>
+        {% endif %}
     </h3>
 	{{message.body|linebreaks}}
 	{% endfor %}

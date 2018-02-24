@@ -87,6 +87,7 @@ def add_message(request, course_id):
         form = MessageForm()
     return render(request, 'moodleapp/addmessage.html', {'form': form})
 
+@teacher_required()
 def view_enrolled(request, course_id):
     course=Course.objects.get(id=course_id)
     enrollments=Enrollment.objects.filter(course=course)
@@ -94,3 +95,8 @@ def view_enrolled(request, course_id):
     for enrollment in enrollments:
         student_list.append(enrollment.student)
     return render(request, 'moodleapp/viewenrolled.html', {'students': student_list})
+
+@teacher_required()
+def delete_message(request, course_id, message_id):
+    Message.objects.get(id=message_id).delete()
+    return HttpResponseRedirect(reverse('moodleapp:teachermessageindex', args=[course_id]))
