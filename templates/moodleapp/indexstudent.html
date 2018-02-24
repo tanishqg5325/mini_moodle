@@ -30,7 +30,7 @@
     </h3>
 	{{course.description|linebreaks}}
     <strong>Instructor: {{ course.prof }}</strong>
-    <a href="{% url 'moodleapp:messageindex' course.id %}" style="float: right">View Messages</a>
+    <a href="{% url 'moodleapp:studentmessageindex' course.id %}" style="float: right">View Messages</a>
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>

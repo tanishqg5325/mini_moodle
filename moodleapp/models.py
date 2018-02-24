@@ -30,7 +30,12 @@ class Message(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    courses = models.ManyToManyField(Course)
+    #courses = models.ManyToManyField(Course)
 
     def __str__(self):
         return self.user.username
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
