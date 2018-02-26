@@ -30,6 +30,7 @@
     </h3>
 	{{course.description|linebreaks}}
     <a href="{% url 'moodleapp:view_enrolled' course.id %}" style="font-size: 15px">View Enrolled Students</a>
+    <a href="{% url 'moodleapp:deletecourse' course.id %}" style="font-size: 15px; float: right">Delete Course</a>
 	{% endfor %}
 {% else %}
 	<div class='alert alert-warning' align='center'>

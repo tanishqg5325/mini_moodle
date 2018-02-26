@@ -100,3 +100,11 @@ def view_enrolled(request, course_id):
 def delete_message(request, course_id, message_id):
     Message.objects.get(id=message_id).delete()
     return HttpResponseRedirect(reverse('moodleapp:teachermessageindex', args=[course_id]))
+
+@teacher_required()
+def delete_course(request, course_id):
+    course = Course.objects.get(id=course_id)
+    Enrollment.objects.filter(course=course).delete()
+    Message.objects.filter(course=course).delete()
+    course.delete()
+    return HttpResponseRedirect(reverse('moodleapp:teacher_index'))
