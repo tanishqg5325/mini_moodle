@@ -26,7 +26,7 @@
 	{% for course in courses %}
 	<h3 class='page-header'>
         <a>{{course.title}}</a>
-        <a href="{% url 'moodleapp:deletecourse' course.id %}" style="float: right; font-size: 15px">Drop the course</a>
+        <a href="{% url 'moodleapp:deletecoursestudent' course.id %}" style="float: right; font-size: 15px">Drop the course</a>
     </h3>
 	{{course.description|linebreaks}}
     <strong>Instructor: {{ course.prof }}</strong>
